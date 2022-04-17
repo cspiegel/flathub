@@ -16,15 +16,22 @@ modules:
   - name: gargoyle
     buildsystem: cmake-ninja
     builddir: true
-    post-install:
-      - install -D $FLATPAK_BUILDER_BUILDDIR/gargoyle-house.svg /app/share/icons/hicolor/scalable/apps/io.github.garglk.Gargoyle.svg
     sources:
       - type: archive
         url: https://github.com/garglk/garglk/archive/refs/tags/2022.1.tar.gz
         sha256: 81f7c687e60b3123e8b20db961e64f5d57c63b509947227316aeaf041d5b00ae
       - type: patch
-        path: fdo.patch
-      - type: patch
         path: flush-streams.patch
+  - name: gargoyle-misc
+    buildsystem: simple
+    build-commands:
+      - install -D gargoyle-house.svg /app/share/icons/hicolor/scalable/apps/io.github.garglk.Gargoyle.svg
+      - install -D io.github.garglk.Gargoyle.appdata.xml /app/share/metainfo/io.github.garglk.Gargoyle.appdata.xml
+      - install -D io.github.garglk.Gargoyle.desktop /app/share/applications/io.github.garglk.Gargoyle.desktop
+    sources:
       - type: file
         path: gargoyle-house.svg
+      - type: file
+        path: io.github.garglk.Gargoyle.appdata.xml
+      - type: file
+        path: io.github.garglk.Gargoyle.desktop
